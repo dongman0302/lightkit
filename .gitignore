@@ -1,0 +1,11 @@
+# Trae / IDE 元数据
+.trae/
+.trae-html-share-packages/
+
+# 系统
+.DS_Store
+Thumbs.db
+
+# 临时文件
+*.log
+*.tmp

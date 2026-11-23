@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>轻工具箱 · LightKit</title>
+<meta name="description" content="一组轻量、免登录、数据只存在本地的日常小工具：待办清单、单位换算、时间戳转换。" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%236368f1'/%3E%3Cpath d='M18 34l9 9 19-20' stroke='white' stroke-width='7' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+<link rel="stylesheet" href="./assets/style.css" />
+</head>
+<body>
+<div class="bg-glow" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true">✓</span>
+    <div>
+      <h1>轻工具箱 <span class="brand-en">LightKit</span></h1>
+      <p class="tagline">免登录 · 离线可用 · 数据只存在你的浏览器里</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <nav class="tabs" role="tablist" aria-label="工具切换">
+    <button class="tab is-active" role="tab" aria-selected="true" aria-controls="panel-todo" id="tab-todo" data-panel="panel-todo">待办清单</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="panel-unit" id="tab-unit" data-panel="panel-unit">单位换算</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="panel-timestamp" id="tab-timestamp" data-panel="panel-timestamp">时间戳转换</button>
+  </nav>
+
+  <!-- 待办清单 -->
+  <section class="panel is-active" id="panel-todo" role="tabpanel" aria-labelledby="tab-todo">
+    <div class="card">
+      <form class="todo-form" id="todo-form" autocomplete="off">
+        <input id="todo-input" type="text" maxlength="120" placeholder="今天要做点什么？回车添加" aria-label="待办内容" />
+        <button class="btn btn-primary" type="submit">添加</button>
+      </form>
+
+      <div class="todo-toolbar">
+        <div class="filters" role="group" aria-label="筛选">
+          <button class="chip is-active" data-filter="all">全部 <b id="count-all">0</b></button>
+          <button class="chip" data-filter="active">未完成 <b id="count-active">0</b></button>
+          <button class="chip" data-filter="done">已完成 <b id="count-done">0</b></button>
+        </div>
+        <button class="link-btn" id="clear-done" type="button">清除已完成</button>
+      </div>
+
+      <ul class="todo-list" id="todo-list" aria-live="polite"></ul>
+      <p class="empty" id="todo-empty">还没有待办事项，先添加一条吧。</p>
+    </div>
+  </section>
+
+  <!-- 单位换算 -->
+  <section class="panel" id="panel-unit" role="tabpanel" aria-labelledby="tab-unit" hidden>
+    <div class="card">
+      <div class="field-row">
+        <label class="field">
+          <span>类别</span>
+          <select id="unit-category">
+            <option value="length">长度</option>
+            <option value="weight">重量</option>
+            <option value="temperature">温度</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>数值</span>
+          <input id="unit-value" type="number" inputmode="decimal" value="1" step="any" />
+        </label>
+      </div>
+
+      <div class="convert-row">
+        <label class="field">
+          <span>从</span>
+          <select id="unit-from"></select>
+        </label>
+        <button class="swap" id="unit-swap" type="button" title="交换单位" aria-label="交换单位">⇄</button>
+        <label class="field">
+          <span>到</span>
+          <select id="unit-to"></select>
+        </label>
+      </div>
+
+      <div class="result" aria-live="polite">
+        <span class="result-value" id="unit-result">1</span>
+        <span class="result-unit" id="unit-result-unit"></span>
+      </div>
+      <p class="hint">温度换算按线性公式计算，其余类别以基准单位换算。</p>
+    </div>
+  </section>
+
+  <!-- 时间戳转换 -->
+  <section class="panel" id="panel-timestamp" role="tabpanel" aria-labelledby="tab-timestamp" hidden>
+    <div class="card">
+      <div class="ts-block">
+        <label class="field">
+          <span>Unix 时间戳（秒）</span>
+          <input id="ts-input" type="text" inputmode="numeric" placeholder="例如 1763891400" />
+        </label>
+        <div class="ts-out" id="ts-date-out">—</div>
+        <button class="btn btn-ghost btn-sm" id="ts-now" type="button">用当前时间填充</button>
+      </div>
+
+      <hr class="divider" />
+
+      <div class="ts-block">
+        <label class="field">
+          <span>本地日期时间</span>
+          <input id="dt-input" type="datetime-local" step="1" />
+        </label>
+        <div class="ts-out" id="dt-ts-out">—</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>轻工具箱 · 纯前端静态站点，所有数据保存在本机浏览器</p>
+</footer>
+
+<script src="./assets/app.js"></script>
+</body>
+</html>
